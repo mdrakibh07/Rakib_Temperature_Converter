@@ -1,0 +1,79 @@
+
+<html>
+    <head>
+        <title>Temperature Converter</title>
+        <style>
+            input{outline: none;}
+            .block{padding: 5px; width:170px; position: absolute;}
+             #box{ position: relative; display: grid;}
+            .cTof{background: rgb(255, 242, 201);}
+            .fToc{background: rgb(227, 255, 198);}
+            h4{border-bottom:2px solid white ; padding: 0; margin: 2px;}
+            .eq{line-height: 64px;position: absolute; left: 200px;}
+        </style>
+        <script>
+            window.onload=function(){
+            let c=document.getElementById('cTof');
+            let f=document.getElementById('fToc');
+            let typeCheck=document.getElementById('isFtoS');
+            let radios = document.querySelectorAll('input[type=radio][name="converType"]');
+
+            c.addEventListener('keyup',function(e){
+             if(e.target.value && !isNaN(e.target.value))
+             f.value=(e.target.value*(9/5)).toFixed(2);
+             else
+             f.value="";
+            });
+
+             f.addEventListener('keyup',function(e){
+             if(e.target.value && !isNaN(e.target.value))
+             c.value=(e.target.value/(9/5)).toFixed(2);
+             else
+             c.value="";
+            });
+
+
+         function changeHandler(e){
+            if(e.target.value=='f'){
+             document.getElementsByClassName('fToc')[0].style.left=0;
+             document.getElementsByClassName('cTof')[0].style.left=230;
+             f.removeAttribute('readonly');
+             c.setAttribute('readonly','true');
+            }
+            else
+            {
+            document.getElementsByClassName('fToc')[0].style.left=230;
+             document.getElementsByClassName('cTof')[0].style.left=0;  
+             c.removeAttribute('readonly');
+             f.setAttribute('readonly','true'); 
+            }
+         }
+        radios.forEach.call(radios, function(radio) {
+         radio.addEventListener('change', changeHandler);
+        });
+            
+        }
+        </script>
+    </head>
+<body>
+<h1>Temperature Converter</h1>
+<section>
+    <label><input type="radio" value="c" name="converType" checked> Celsius to Fahrenheit</label>
+    <label><input type="radio" value="f" name="converType"> Fahrenheit to Celsius</label>
+    <br><br>
+    <div id="box">
+
+        <div class="block cTof">
+        <h4>Celsius</h4>
+        <input id="cTof" size="4" type="number" placeholder="Celsius">
+        </div>
+         <div class="eq">=</div>
+        <div class="block fToc" style="left: 230px;">
+            <h4>Fahrenheit</h4>
+            <input  id="fToc" type="number" placeholder="Fahrenheit" readonly>
+        </div>
+       
+    </div>
+</section>
+</body>
+</html>
